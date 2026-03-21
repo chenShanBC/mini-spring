@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <!-- User Bean -->
+    <bean id="user" class="com.wubai.summer.test.pojo.User"/>
+
+    <!-- UserService：需要注入 user -->
+    <bean id="userService" class="com.wubai.summer.test.Services.UserService">
+        <property name="user" ref="user"/>
+    </bean>
+
+    <!-- OrderService：构造器注入 userService，属性注入 user -->
+    <bean id="orderService" class="com.wubai.summer.test.Services.OrderService">
+        <constructor-arg ref="userService"/>
+        <property name="user" ref="user"/>
+    </bean>
+</beans>

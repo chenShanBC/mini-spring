@@ -1,0 +1,27 @@
+模块一：IOC容器的实现
+一、前提准备
+1、核心设计思路
+    （1）仅实现ApplicationContext（启动时初始化所有单例 Bean，放弃懒加载的 BeanFactory）；
+    （2）仅支持注解配置（@Component/@ComponentScan/@Configuration/@Bean/@Autowired）；
+    （3）支持构造器 / Setter / 字段注入，仅管理单例 Bean；
+    （4）核心流程：资源扫描→解析 BeanDefinition→实例化 Bean→依赖注入→初始化 Bean；
+    （5）核心组件：ResourceResolver（包扫描）、BeanDefinition（Bean 元数据）、AnnotationConfigApplicationContext（容器核心）。
+
+2、项目结构设计：
+项目结构（新建普通 Java 项目，按如下包结构创建）：
+plaintext
+src/
+└── main/
+    └── java/
+        └── com/wubai
+            └── summer/
+                ├── annotation/  // 自定义注解
+                ├── core/        // IoC核心实现
+                └── test/        // 测试类
+
+3、核心注解实现
+3.1 @Component：标识被容器管理的 Bean
+3.2 @ComponentScan：指定包扫描路径
+3.3 @Configuration：标识配置类（特殊的 Component）
+3.4 @Bean：标识配置类中的工厂方法，创建第三方 Bean
+3.5 @Autowired：标识依赖注入（构造器 / Setter / 字段）
